@@ -12,15 +12,16 @@ public class HelloWorld {
 		System.out.println("Hello, World");
 		
 		
+		int sum = 0;
 		int myAge = 20; 
 		myAge = 20;
 		
-		for (int i = 1, 1 <= 10; i++ )
-			{if{i%2==0)	{
+		for (int i = 1; 1 <= 10; i++ )
+			{if (i%2==0)	{
 		System.out.println("i의 값은"+i);  
 		sum += i;
 
 		}
-		system.out.println.("sum의 값은 " + sum);
+		System.out.println ("sum의 값은 " + sum);
 	}
 }
