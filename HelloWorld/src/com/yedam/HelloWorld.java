@@ -21,6 +21,6 @@ public class HelloWorld {
 		sum += i;
 
 		}
-		system.out.println.("sUM의 값은 " + sum);
+		system.out.println.("sum의 값은 " + sum);
 	}
 }
