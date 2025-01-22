@@ -3,7 +3,7 @@ package com.yedam;
 import java.util.Scanner;
 
 // com.yedam.Todo 
-public class todo {
+public class todo1_2 {
 
 	public static void main(String[] args) {
 
@@ -21,17 +21,30 @@ public class todo {
 
 			if (num == 1) {// 입금. 잔액+입금액>100000 -> "금액초과입니다"
 				System.out.print("입금액을 입력>");
-				balance += Integer.parseInt(scn.nextLine());
-				System.out.println("입금완료");
-
+				money = Integer.parseInt(scn.nextLine());
+				
+				if (balance + money > 100000) {
+					System.out.println("금액초과입니다");
+				} else {
+					balance += money; 
+					System.out.println("입금완료);
+				}
+				
 			} else if (num == 2) { // 출금. 잔액-출금액<0 -> "잔액을 확인하세요"
 				System.out.print("출금액을 입력> ");
-				balance -= Integer.parseInt(scn.nextLine());
-				System.out.println("출금완료");
-
+				money = Integer.parseInt(scn.nextLine());
+				
+				if (balance < money ) {
+					System.out.println("잔액을 확인하세요");
+				} else {
+					balance -= money; 
+					System.out.println("출금완료);
+				}
+				
 			} else if (num == 3) { // 잔액조회
 				System.out.printf("현재 잔액은 %d입니다. \n", balance);
-
+				
+				
 			} else if (num == 4) { // 종료
 				System.out.printf("잔액은>");
 
