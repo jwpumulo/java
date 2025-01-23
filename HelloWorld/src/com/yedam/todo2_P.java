@@ -1,6 +1,7 @@
 package com.yedam;
 
 import java.util.Scanner;
+Scanner scn=new Scanner(System.in);
 
 /*
  * 친구정보관리 앱 v.1
