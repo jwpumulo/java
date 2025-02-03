@@ -4,6 +4,28 @@ public class Calculator_Cal {
 
 	public void showCalendar() {
 //1월달 출력.
+		
+		int spaces =3;
+		int lastDate = 31;
+		
+		
+	String[] dateAry - new String[spaces + lastDate];
+
+	
+	for (int i = 0; i < dateAry.length; i++) {
+		
+		if (i < spaces)
+	 {
+		dateAry[i] = "";
+		
+		
+	} else {
+	dateAry[i] = ""+ (i + 1 -spaces)	;
+	
+	}
+	}
+		
+		
 		String[] days = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 		for (String day : days) {
 			System.out.printf("%4s", day);
