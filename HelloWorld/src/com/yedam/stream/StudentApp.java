@@ -48,7 +48,7 @@ public class StudentApp {
 			case 9:
 				System.out.println("프로그램을 종료합니다.");
 				save();
-				runs = false;
+				run = false;
 
 			}
 			System.out.println("end of prog");
@@ -130,10 +130,11 @@ public class StudentApp {
 		try {
 			Reader reader = new FileReader("c:/temp/studendtList.txt");
 			BufferedReader br = new BufferedReader(reader);
-
-			String str = br.readLine();
-			if (str == null) {
-				break;
+			while (true) {
+				String str = br.readLine();
+				if (str == null) {
+					break;
+				}
 				// 반복종료
 				String[] ary = str.split(" "); // {이름, 키, 몸무게 점수}
 				Student student = new Student(ary[0]// 이름
@@ -142,6 +143,7 @@ public class StudentApp {
 						, Integer.parseInt(ary[3])); // 점수
 
 				students.add(student); // 컬렉션 추가
+
 			}
 
 			br.close();
@@ -155,5 +157,4 @@ public class StudentApp {
 		}
 
 	}
-
 }
