@@ -49,18 +49,18 @@ public class EmpListExe implements EmpDAO {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-
+//급여변경을 안할려고 엔터만 입력
 			if (emp.getSalary() != 0) {
 
 				empList.get(i).setSalary(emp.getSalary());
 			}
 
-			return true;
+			return true; // 정상수정
 		}
 
-		return false;
+		return false;// 수정못함
 
-	}
+	} // end of modify
 
 	@Override
 	public boolean removeEmp(int empNo) {
@@ -76,10 +76,10 @@ public class EmpListExe implements EmpDAO {
 	}
 
 	@Override
-	public Employee[] search(Employee emp) { // sal보다 급여가 많은 사람 조회
+	public List<Employee> search(Employee emp) { // sal보다 급여가 많은 사람 조회
 		// sal보다 급여가 많은 사람
-		Employee[] result = new Employee[10];
-		int idx = 0;
+		List<Employee> result = new ArrayList<Employee>();
+		// int idx = 0;
 
 //		
 //		for (int i = 0; i < empList.size(); i++) {
@@ -94,9 +94,10 @@ public class EmpListExe implements EmpDAO {
 		for (int i = 0; i < empList.size(); i++) {
 			// indexof
 			if (empList.get(i).getEmpName().indexOf(emp.getEmpName()) != -1) {
-				result[idx] = empList.get(i);
-				idx++; // 0qn터 1씩 증가되도록
+				// result[idx] = empList.get(i);
+				// idx++; // 0qn터 1씩 증가되도록
 
+				result.add(empList.get(i)); // add추가 배열보다 간단함, idx필요없음
 			}
 
 		}

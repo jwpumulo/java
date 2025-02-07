@@ -1,5 +1,7 @@
 package com.yedam.interfaces.emp;
 
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -13,6 +15,7 @@ import java.util.Scanner;
  */
 
 public class MainExe {
+	static Scanner scn = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		// 스캐너, run
@@ -22,11 +25,22 @@ public class MainExe {
 		// 배열, 컬렉션
 		EmpDAO dao = new EmpListExe();
 
-		while (run) {
+		while (run)
+
+		{
 			System.out.println("1.추가 2.수정 3.삭제 4.조회 9.종료");
 			System.out.print("선택>>");
+			int menu = 0;
 
-			int menu = scn.nextInt();
+			try {
+				menu = scn.nextInt();
+			} catch (InputMismatchException e) {
+				// 정상실행이 진행되도록 기능작성
+				System.out.println("메뉴를 확인하세요");
+				scn.nextLine();
+				continue;
+			}
+
 			scn.nextLine();
 			switch (menu) { // 컨트록하는 역할
 
@@ -43,6 +57,18 @@ public class MainExe {
 					System.out.println("등록성공");
 				}
 				break; // end of case1
+
+			// Number Format 예외처리
+//				int empNo = 0;
+//				while (true) {
+//					try {
+//						System.out.println("사원번호?>> ");
+//						empNo = Integer.parseInt(scn.nextLine());
+//						break; // 정상적인 값을 입력하면 와일 종료
+//					} catch (NumberFormatException e) {
+//						System.out.println("사원번호를 확인하세요");
+//					}
+//				} // end of while
 
 			case 2: // 수정 항목: 전화번호, 입사일자, 급여. +사원번호를 기준으로
 				;
@@ -74,11 +100,17 @@ public class MainExe {
 				break; // case 2종료.
 
 			case 3: // 삭제 사원번호
-				System.out.print("사원번호>> ");
-				empNo = Integer.parseInt(scn.nextLine());
+//				System.out.print("사원번호>> ");
+//				empNo = Integer.parseInt(scn.nextLine());
+//
+//				if (dao.removeEmp(empNo)) {
+//					System.out.println("삭제완료");
+//				}
 
-				if (dao.removeEmp(empNo)) {
-					System.out.println("삭제완료");
+				try {
+					remove(); // 예외
+				} catch (NumberFormatException e) {
+					System.out.println("사원번호 확인");
 				}
 				break;
 
@@ -95,7 +127,7 @@ public class MainExe {
 
 				emp.setSalary(sal);
 				// 조회결과
-				Employee[] result = dao.search(emp);
+				List<Employee> result = dao.search(emp);
 				// 출력
 				System.out.println("사번  이름   연락처  급여");
 				System.out.println("------------------------");
@@ -117,10 +149,18 @@ public class MainExe {
 
 			}
 
-		}
+		} // end of while
 
 		System.out.println("end of prog.");
 	}// end of main
 
+	static void remove() throws NumberFormatException {
+		System.out.print("사원번호>> ");
+		int empNo = Integer.parseInt(scn.nextLine());
+
+		if (dao.removeEmp(empNo)) {
+			System.out.println("삭제완료");
+		}
+	}// end of remove
 }
 // end of class
