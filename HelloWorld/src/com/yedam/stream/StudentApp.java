@@ -10,151 +10,171 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/*
- * 학생정보 관리 프로그램 v1
- * 학생이름, 키, 이름, 점수
- */
 public class StudentApp {
 
 	Scanner scn = new Scanner(System.in);
-	boolean run = true;
 
-	// 임시저장
 	List<Student> students = new ArrayList<>();
 
 	public StudentApp() {
 
 		init();
+
 	}
 
-	public void start() {
-		while (run) {
-			System.out.println("1.목록 2. 추가 3.삭제 9.종료");
-			System.out.print("선택>> ");
+	public void start() throws Exception {
+		boolean run = true;
 
-			int menu = Integer.parseInt(scn.nextLine());
+		while (run) {
+
+			System.out.println("===================================");
+			System.out.println("1.목록 2.추가 3.삭제 9.종료");
+			System.out.println("===================================");
+			System.out.print("골라>>");
+
+			int menu = 0;
+
+			try {
+				menu = Integer.parseInt(scn.nextLine());
+			} catch (Exception e) {
+				System.out.println("다시");
+				continue;
+			}
+
 			switch (menu) {
 			case 1:
 				studentList();
-
 				break;
 			case 2:
 				addStudent();
-
 				break;
 			case 3:
 				removeStudent();
 				break;
 			case 9:
-				System.out.println("프로그램을 종료합니다.");
-				save();
 				run = false;
-
+				System.out.println("끝남");
+				save();
+				break;
+			default:
+				System.out.println("뭐함?");
 			}
-			System.out.println("end of prog");
 		}
-	}// end of start
+	}
 
-	public void studentList() {
-		// 이름 점수
-		// ------------------
-		// 홍길동 90
-		System.out.println("이름		    점수");
-		System.out.println("------------------");
+	void studentList() {
 
-		for (Student std : students) {
-			System.out.println(" " + std.getName()//
-					+ " " + std.getScore() + "");
+		System.out.println(" 이름 점수");
+		System.out.println("===========");
+		for (Student item : students) {
+			System.out.printf("%3s %3d\n", item.getName(), item.getScore());
 		}
+	}
 
-	} // end of studentList
+	void addStudent() throws Exception {
 
-	public void addStudent() {
-		System.out.println("학생 이름 입력>> ");
+		System.out.print("이름>>");
 		String name = scn.nextLine();
 
-		System.out.println("학생 키 입력>> ");
-		double height = Double.parseDouble(scn.nextLine());
+		double height = 0.0;
 
-		System.out.println("학생 몸무게 입력>> ");
-		double weight = Double.parseDouble(scn.nextLine());
+		while (true) {
+			try {
+				System.out.print("키>>");
+				height = Double.parseDouble(scn.nextLine());
+				break;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("키 다시");
+			}
+		}
+		double weight = 0.0;
 
-		System.out.println("학생 점수 입력>> ");
-		int score = Integer.parseInt(scn.nextLine());
+		while (true) {
+			try {
+				System.out.print("몸무게>>");
+				weight = Double.parseDouble(scn.nextLine());
+				break;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("몸무게 다시");
+			}
+		}
+		int score = 0;
 
-		students.add(new Student(name, height, weight, score));// 추가
-		System.out.println("등록완료");
+		while (true) {
+			try {
+				System.out.print("점수>>");
+				score = Integer.parseInt(scn.nextLine());
+				break;
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("점수 다시");
+			}
+		}
 
-	}// end of addStuden
+		students.add(new Student(name, height, weight, score));
+		System.out.println("등록함");
+	}
 
-	public void removeStudent() {
-		System.out.println("학생 이름 입력>> ");
+	void removeStudent() {
+
+		System.out.print("이름>>");
 		String name = scn.nextLine();
 
-		// 삭제
 		for (int i = 0; i < students.size(); i++) {
 			if (students.get(i).getName().equals(name)) {
 				students.remove(i);
-				System.out.println("삭제완료.");
+				System.out.println("삭제함");
 				return;
 			}
+		}
+		System.out.println("삭제못함");
+	}
 
-		} // end of removeStudent()
-
-	}// end of removeStuden
-
-	public void save() {
-		// c:/temp/studentList.txt
-
+	void save() {
 		try {
 			Writer writer = new FileWriter("c:/temp/studentList.txt");
-			// 갯수만큼 반복저장
-			for (Student std : students) {
-				writer.write(std.getName() + "" + std.getHeight() + "" + std.getWeight() + "" + std.getScore() + "\n");
+//			BufferedWriter bwriter = new BufferedWriter(writer);
+
+			for (Student item : students) {
+				writer.write(item.getName() + " " + item.getHeight() + " " + item.getWeight() + " " + item.getScore()
+						+ "\n");
 			}
+
 			writer.flush();
 			writer.close();
-
 		} catch (IOException e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("SAVED");
-	}// end of save
+		System.out.println("저장됨");
+	}
 
-	// 파일을 읽어서 컬렉션 저장
-	public void init() {
-
-		// c:/temp/studendtList.txt
-
+	void init() {
 		try {
-			Reader reader = new FileReader("c:/temp/studendtList.txt");
-			BufferedReader br = new BufferedReader(reader);
+			Reader reader = new FileReader("c:/temp/studentList.txt");
+			BufferedReader breader = new BufferedReader(reader);
+
 			while (true) {
-				String str = br.readLine();
-				if (str == null) {
+
+				String data = breader.readLine();
+
+				if (data == null) {
 					break;
 				}
-				// 반복종료
-				String[] ary = str.split(" "); // {이름, 키, 몸무게 점수}
-				Student student = new Student(ary[0]// 이름
-						, Double.parseDouble(ary[1])// 키
-						, Double.parseDouble(ary[2])// 몸무게
-						, Integer.parseInt(ary[3])); // 점수
 
-				students.add(student); // 컬렉션 추가
+				String[] result = data.split(" ");
 
+				students.add(new Student(result[0], Double.parseDouble(result[1]), Double.parseDouble(result[2]),
+						Integer.parseInt(result[3])));
 			}
 
-			br.close();
+			breader.close();
 			reader.close();
-
-		} catch (
-
-		IOException e) {
-
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }

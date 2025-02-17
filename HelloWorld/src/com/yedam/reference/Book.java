@@ -1,81 +1,82 @@
 package com.yedam.reference;
 
-/*
-도서명 저자 출판사 판매가격
-*/
-
 public class Book {
+	
+	// public, protected, default, private
 
-	public static Object showDetailInf;
-	// 필드
+	// field
+
 	private String bookTitle;
-	private String bookAuthor;
-	private String bookPress;
-	private int bookPrice; // 프라이빗
+	private String bookWriter;
+	private String bookCompany;
+	private int bookPrice;
 
-	// 접근제한자 p386
-	// public 다른패키지더라도 사용가능, default, private
-
-	// 생성자 (필드를 초기화 해주는)
-	public Book(String bookTitle, String bookAuthor, String bookPress, int bookPrice) {
-		this.bookTitle = bookTitle;
-		this.bookAuthor = bookAuthor;
-		this.bookPress = bookPress;
-		this.bookPrice = bookPrice;
-	}
-
-	// 제목, 저자, 가격 (메소드)
-	public String showBookInfo() {
-		return bookTitle + "	" + bookAuthor + "	" + bookPrice;
+	// constructor
+	Book() {
 
 	}
 
-	void showDetailInfo() {
-
-		// 도서명: 이것이 자바다 출판사: 한빛 미디어
-		// 저 자: 신용권 가 격: 25000원
-		String strFormat = " 도서명: %10s\t출판사: %16s\n 저 자: %13s\t\t가 격: %5d 원\n ";
-		System.out.printf(strFormat, bookTitle, bookPress, bookAuthor, bookPrice);
-
+	Book(String bookTitle, String bookWriter, String bookCompany, int bookPrice) {
+		setBookTitle(bookTitle);
+		setBookWriter(bookWriter);
+		setBookCompany(bookCompany);
+		setBookPrice(bookPrice);
 	}
 
-// setter 메소드를 가지고 필드를 채워줌
-	void setBookPrice(int bookPrice) {
-		if (bookPrice < 0) {
-			this.bookPrice = 0;
-			return;
-		}
-		this.bookPrice = bookPrice;
+	// method
+
+	void printInfo() {
+		System.out.printf("제목: %s, 저자: %s, 출판사: %s, 가격: %d\n", bookTitle, bookWriter, bookCompany, bookPrice);
 	}
 
-	void setBookTitle(String bookTitle) {
-		this.bookTitle = bookTitle;
+	void printInfoDetail() {
+		System.out.println("==============================");
+		System.out.printf("제목: %s\n", bookTitle);
+		System.out.printf("저자: %s\n", bookWriter);
+		System.out.printf("출판사: %s\n", bookCompany);
+		System.out.printf("가격: %d\n", bookPrice);
+		System.out.println("==============================");
 	}
 
-	public void setBookAuthor(String bookAuthor) {
-		this.bookAuthor = bookAuthor;
+	String getInfo() {
+		return "제목: " + bookTitle + " 저자: " + bookWriter + " 출판사: " + bookCompany + " 가격: " + bookPrice;
 	}
 
-	public void setBookPress(String bookPress) {
-		this.bookPress = bookPress;
-	}
-
-	// getter
+	// getter, setter
 
 	public String getBookTitle() {
 		return bookTitle;
 	}
 
-	public String getBookAuthor() {
-		return bookAuthor;
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
 	}
 
-	public String getBookPress() {
-		return bookPress;
+	public String getBookWriter() {
+		return bookWriter;
+	}
+
+	public void setBookWriter(String bookWriter) {
+		this.bookWriter = bookWriter;
+	}
+
+	public String getBookCompany() {
+		return bookCompany;
+	}
+
+	public void setBookCompany(String bookCompany) {
+		this.bookCompany = bookCompany;
 	}
 
 	public int getBookPrice() {
 		return bookPrice;
 	}
 
-}// end of class
+	public void setBookPrice(int bookPrice) {
+		if (bookPrice < 0) {
+			this.bookPrice = 0;
+		} else {
+			this.bookPrice = bookPrice;
+		}
+	}
+}

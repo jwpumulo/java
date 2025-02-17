@@ -1,44 +1,55 @@
 package com.yedam.api;
 
+import java.util.Calendar;
+
 public class StringExam {
+
 	public static void main(String[] args) {
-//문제호출
 
-	static void 연습() {
-		String str = "hello";
-		String str1 = "world";
-		StringUtil 연결하기(str.str1);
+		no1();
+		no2();
+		no3();
 
-	}
-
-	static void no1() { // replace,charat
-
-		String ssn1 = "9999991685444";
-		String ssn2 = "021112 1341234";
-		String ssn3 = "021112-3341234";// 8번째 값이
+		Calendar now = Calendar.getInstance();
 		
-		StringUtil.checkGender(ssn1);
-		StringUtil.checkGender(ssn2);
-		StringUtil.checkGender(ssn3);
-
+		now.set(Calendar.YEAR, 2024);
+		now.set(2024, 1, 10);
+		
+		System.out.println(now.get(Calendar.YEAR));
+		System.out.println(now.get(Calendar.MONTH) + 1);
+		System.out.println(now.get(Calendar.DATE));
+		System.out.println(now.get(Calendar.DAY_OF_WEEK));
+		System.out.println(now.getActualMaximum(Calendar.DATE));
 	}
 
-	static void no2() { // indexof, substring
-		//파일경로와 파일명
-	}
-		String file1 = "C:/temp/flower.jpg";
-		String file2 = "D:/web/project/guide.mp3";
-		StringUtil.checkExtension(file1);
+	static void no1() {
 
-	}
+		String ex1 = "0505053555555";
+		String ex2 = "050505 4555555";
+		String ex3 = "050505-9555555";
 
-	static void no3() { // trim
-		// 문자의 갯수를 반환
-		String str1 = " suggest ";
-		String str2 = " currently ";
-		String str3 = " particular ";
-		StringUtil.getLength(str3);
-
+		StringUtil.checkGender(ex1);
+		StringUtil.checkGender(ex2);
+		StringUtil.checkGender(ex3);
 	}
 
+	static void no2() {
+
+		String ex1 = "C:/temp/flower.jpg";
+		String ex2 = "D:/web/project/guide.mpeg";
+
+		StringUtil.checkExtension(ex1);
+		StringUtil.checkExtension(ex2);
+	}
+
+	static void no3() {
+
+		String ex1 = "  suggest ";
+		String ex2 = "  currently  ";
+		String ex3 = "  particular  ";
+
+		StringUtil.getLength(ex1);
+		StringUtil.getLength(ex2);
+		StringUtil.getLength(ex3);
+	}
 }

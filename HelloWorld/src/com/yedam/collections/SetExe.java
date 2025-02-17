@@ -8,25 +8,22 @@ public class SetExe {
 
 	public static void main(String[] args) {
 		Set<String> set = new HashSet<String>();
-
-		set.add("홍길동");
-		set.add("반갑습니다");
-		set.add("1000");
-		set.add(String.valueOf(true)); // 문자열반환
-
-		set.add("홍길동");
-
-		Iterator<String> iter = set.iterator(); // 반복자
-		while (iter.hasNext()) { // 컬렉션에 요소있는지 확인
-
-			String result = iter.next(); // 컬렉션의 요소를 반환
-			System.out.println(result);
+		
+		set.add("홍");
+		set.add(null);
+		set.add("길");
+		set.add("100");
+		set.add(String.valueOf(true));
+		
+		Iterator<String> iter = set.iterator();
+		
+		
+		while (iter.hasNext()) {
+			System.out.println(iter.next());
 		}
-
-		for (String str : set) { // 향상된 for구문
-			System.out.println(str);
-
+		
+		for (String item : set) {
+			System.out.println(item);
 		}
 	}
-
 }

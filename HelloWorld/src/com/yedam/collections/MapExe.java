@@ -8,30 +8,25 @@ import java.util.Set;
 public class MapExe {
 
 	public static void main(String[] args) {
-		// 키:값 > 엔트리
+		
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("홍길동", 90);
-		map.put("김문수", 80);
-		map.put("박은수", 85);
-
-		// 키 > 값 반환
-		Integer val = map.get("홍길동");
-
-		Set<String> keys = map.keySet();
+		map.put("홍", 90);
+		map.put("김", 80);
+		map.put("박", 85);
+		map.put("박", 95);
+		
+		Integer val = map.get("홍");
+		
+		Set<String> keys= map.keySet();
+		
 		for (String key : keys) {
-			System.out.println(key);
-			System.out.printf("키: %s, 값: %d\n", key, map.get(key));
-
+			System.out.printf("key: %s, value: %s\n", key, map.get(key));
 		}
-
-		// 키:값 (엔트리) 엔트리반환
+		
 		Set<Entry<String, Integer>> entry = map.entrySet();
-		for (Entry<String, Integer> ent : entry) {
-			System.out.printf("키: %s, 값: %d\n", //
-					ent.getKey(), ent.getValue());
-
+		
+		for (Entry<String, Integer> ent: entry) {
+			System.out.printf("key: %s, value: %s\n", ent.getKey(), ent.getValue());
 		}
-
 	}
-
 }

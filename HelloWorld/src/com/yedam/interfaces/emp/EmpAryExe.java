@@ -1,43 +1,30 @@
 package com.yedam.interfaces.emp;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * 배열활용
- */
-
 public class EmpAryExe implements EmpDAO {
 
-	// employee객체를 담을 배열 저장공간
 	Employee[] employees = new Employee[10];
 
-	// 생성자
 	public EmpAryExe() {
-
-		employees[0] = new Employee(1001, "김지수", "111-0103");
-		employees[1] = new Employee(1002, "김제니", "111-0116");
-		employees[2] = new Employee(1003, "박채영", "111-0212");
-		employees[3] = new Employee(1004, "라리사", "111-0327");
-
+		employees[0] = new Employee(1001, "김사원", "1111");
+		employees[1] = new Employee(1002, "이대리", "2222");
+		employees[2] = new Employee(1003, "박주임", "3333");
+		employees[3] = new Employee(1004, "최사장", "4444", "2000-01-01", 500);
 	}
 
 	@Override
 	public boolean registerEmp(Employee emp) {
-		
-		for (int i = 0; i< employees.length; i++) {
-			//빈공간에 추가
-			if (employees[i] == null ) {
-				employees[i] == emp;
-				return true;
-			
-			}
-			
 
-			
+		for (int i = 0; i < employees.length; i++) {
+			if (employees[i] == null) {
+				employees[i] = emp;
+				return true;
+			}
 		}
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -46,71 +33,58 @@ public class EmpAryExe implements EmpDAO {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		for (int i = 0; i < employees.length(); i++) {
+		for (int i = 0; i < employees.length; i++) {
+			if (employees[i] != null && employees[i].getEmpNo() == emp.getEmpNo()) {
 
-			// 사원번호 비교
-			if (employees[i] != null && employees[i].getEmpNo() == emp.getEmpNo()) { // 공백이 아니면 변경
+				if (!emp.getTelNo().equals("")) {
+					employees[i].setTelNo(emp.getTelNo());
+				}
 
-			}
-			// 연락처 값이 "" 이 아닐때 변경.
-
-			try {
-				if (emp.getHireDate().equals(sdf.parse("1900-01-01"))) {
+				if (!sdf.format(emp.getHireDate()).equals("1900-01-01")) {
 					employees[i].setHireDate(emp.getHireDate());
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-//급여변경을 안할려고 엔터만 입력
-			if (emp.getSalary() != 0) {
 
-				employees[i].setSalary(emp.getSalary());
+				if (emp.getSalary() != 0) {
+					employees[i].setSalary(emp.getSalary());
+				}
+				return true;
 			}
-
-			return true; // 정상수정
 		}
-
-		return false;// 수정못함
-
+		return false;
 	}
 
 	@Override
 	public boolean removeEmp(int empNo) {
-
 		for (int i = 0; i < employees.length; i++) {
-			if (employees[i] != null && //
-					employees[i].getEmpNo() == empNo) {
-				employees[i] = null;// 삭제
-
+			if (employees[i] != null && employees[i].getEmpNo() == empNo) {
+				employees[i] = null;
 				return true;
 			}
-
 		}
 		return false;
-
 	}
 
 	@Override
 	public List<Employee> search(Employee emp) {
-
+		// TODO Auto-generated method stub-
 		List<Employee> result = new ArrayList<Employee>();
-	//	int idx = 0;
-		String name = emp.getEmpName();
+
+//		for (int i = 0; i < empList.size(); i++) {
+//			if (empList.get(i).getSalary() >= emp.getSalary()
+//					&& (empList.get(i).getEmpName().indexOf(emp.getEmpName()) != -1)) {
+//				result[idx] = empList.get(i);
+//				idx++;
+//			}
+//		}
 
 		for (int i = 0; i < employees.length; i++) {
-			if (employees[i] != null && //)
-			
-					employees[i].getEmpName().indexOf(name) > -1) {
-				
-				
-				result.add
+			if (employees[i] != null 
+					&& employees[i].getEmpName().indexOf(emp.getEmpName()) != -1) {
+				result.add(employees[i]);
 			}
-			
-			}
+		}
 
-			// index of 사용
-		
-		return null;
+		return result;
 	}
 
 }

@@ -2,120 +2,144 @@ package com.yedam.reference;
 
 public class Calculator {
 
-	// 매개값, 반환값
-// 183
-//	*
-//	**\
-//	***\
-//	****
+	//
 
-	public Book getBookInfo(String btitle, Book[] bookAry) {// {북 인스턴스 4개
-//		Book[] bookRepo = { new Book("소년이 온다", "한강", "창비", 15000), new Book("초역 부처의 말", "코이케류노스케", "포레스트북스", 17800),
-//				new Book("작별하지 않는", "한", "문학동", 16800), new Book("이처럼 사소한 것들", "홍한", "다산책방", 13800)
-//
-//		};
-//배열에서 검색
-		for (int i = 0; i < bookAry.length; i++) {
-			if (bookAry[i].getBookTitle().equals(btitle)) { // 제목
-				return bookAry[i]; // price는 string에서 int로
+	public void showCalendar(int space, int max) {
+
+		String[] days = { "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT" };
+
+		for (String day : days) {
+			System.out.printf("%5s", day);
+		}
+		System.out.println("\n=====================================");
+
+//		int space = 3;
+//		int max = 31;
+
+		for (int i = 0; i < max + space; i++) {
+			if (i < space) {
+				System.out.printf("%5s", " ");
+			} else if ((i + 1) % 7 == 0) {
+				System.out.printf("%5d\n", (i + 1) - space);
+			} else {
+				System.out.printf("%5d", (i + 1) - space);
 			}
 		}
-		return null; // -1 null의 차이는?
+
+		String[] dateAry = new String[space + max];
+
+		for (int i = 0; i < dateAry.length; i++) {
+			if (i < space) {
+				dateAry[i] = "";
+			} else {
+				dateAry[i] = "" + ((i + 1) - space);
+			}
+		}
+
+		System.out.println("\n=====================================");
+
+		for (int i = 0; i < dateAry.length; i++) {
+			if ((i + 1) % 7 == 0) {
+				System.out.printf("%5s\n", dateAry[i]);
+			} else {
+				System.out.printf("%5s", dateAry[i]);
+			}
+		}
+
+//		int week = (empty + max) % 7 == 0 ? (empty + max) / 7 : (empty + max) / 7 + 1;   
+//
+//		System.out.println("\n=====================================");
+//		for (int i = 0; i < week; i++) {
+//			for (int j = 0; j < 7; j++) {
+//				int day =  i * 7 + j;
+//				if (day < empty) {
+//					System.out.printf("%5s", " ");
+//				} else if (day < max + empty){
+//					System.out.printf("%5d", day + 1 - empty);
+//				}
+//			}
+//			System.out.print("\n");
+//		}
+		System.out.println("\n=====================================");
 	}
 
-	public boolean getBookInfo(String btitle) {// 북 인스턴스 4개
-		Book[] bookRepo = { new Book("소년이 온다", "한강", "창비", 15000), new Book("초역 부처의 말", "코이케류노스케", "포레스트북스", 17800),
-				new Book("작별하지 않는", "한", "문학동", 16800), new Book("이처럼 사소한 것들", "홍한", "다산책방", 13800)
+	//
 
-		};
-//배열에서 검색
-		for (int i = 0; i < bookRepo.length; i++) {
-			if (bookRepo[i].getBookTitle().equals(btitle)) { // 제목
-				return bookRepo[i]; // price는 string에서 int로
+	public Book getBookInfo(String bookTitle, Book[] bookRepository) {
+		for (Book book : bookRepository) {
+			if (book.getBookTitle().equals(bookTitle)) {
+				return book;
 			}
 		}
 		return null;
 	}
 
-	// 1~100 사이의 임의값을 n개 반환.
+	//
+
 	public int[] randomAry(int n) {
 		int[] result = new int[n];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = (int) (Math.random() * 100) + 1;
 
+		for (int i = 0; i < n; i++) {
+			result[i] = (int) (Math.random() * 100) + 1;
 		}
+
 		return result;
 	}
 
-	public void printStar(int times) { // 매개변수 types
-		for (int i = 1; i <= times; i++) {
-			printStar(i, "*");
-			System.out.println();
+	// max
 
-//			System.out.println("*");
-//			System.out.println("**");
-//			System.out.println("***");
-//			System.out.println("****");
+	public int getMax(int num1, int num2) {
+		return num1 > num2 ? num1 : num2;
+	}
+
+	public int getMax(int[] numAry1, int[] numAry2) {
+		int sum1 = sum(numAry1);
+		int sum2 = sum(numAry2);
+		return sum1 > sum2 ? sum1 : sum2;
+	}
+
+	// print
+	public void printStar(int line) {
+		for (int i = 0; i < line; i++) {
+			printStar(i + 1, "*");
+			System.out.println();
 		}
 	}
 
-	// 별 출력하는 메소드
-	public void printStar(int times, String types) { // 매개변수 types
-		for (int i = 1; i <= times; i++) {
+	public void printStar2(int line) {
+		for (int i = 0; i < line; i++) {
+			for (int j = 0; j < line; j++) {
+				if (i + j > line - 2) {
+					System.out.print("*");
+				} else {
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	public void printStar(int times, String types) {
+		for (int i = 0; i < times; i++) {
 			System.out.print(types);
 		}
 	}
 
-	// 두 숫자 중에서 큰 값을 반환
-	public int getMax(int num1, int num2) {
-
-		return num1 > num2 ? num1 : num2;
-	}
-
-	// 두수의 합을 반환하는 메소드
+	// sum - overloading
 
 	public int sum(int num1, int num2) {
-
-		if (num1 > num2) { // return num1 > num2 ? num1 : num2;
-			return num1;
-		} else {
-			return num2;
-		}
-
-	}
-
-	// 동일한 메소드명을 중복정의: overloading
-	public double sum(double num1, double num2)
-
-	{
 		return num1 + num2;
-
 	}
 
-	public int sum(int[] intAry) {
+	public double sum(double num1, double num2) {
+		return num1 + num2;
+	}
+
+	public int sum(int[] numAry) {
 		int sum = 0;
-		for (int i = 0; i < intAry.length; i++) {
-			sum += intAry[i];
-
+		for (int num : numAry) {
+			sum += num;
 		}
-
 		return sum;
-
 	}
-//
-//	public int sum(ary1[] intAry1) {
-//		int sum = 0;
-//		for (int i = 0; i < intAry.length; i++) {
-//			sum += intAry[i];
-//
-//		}
-//
-//		return sum;
-//
-//	}
-
-	public static void main(String[] args) {
-		System.out.println("------------------------------");
-	}
-
-}// end of class
+}

@@ -1,38 +1,47 @@
 package com.yedam.stream;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 
 public class FileExe2 {
+	
 	public static void main(String[] args) {
-//보조스트림(입출력스트림)
 
 		try {
-			Reader reader = new FileReader("c:/temp/students.txt");
-			BufferedReader br = new BufferedReader(reader);
-
+			Reader reader = new FileReader("c:/temp/student.txt");
+			BufferedReader breader = new BufferedReader(reader);
+			Writer writer = new FileWriter("c:/temp/student2.txt");
+			BufferedWriter bwriter = new BufferedWriter(writer);
+			
 			while (true) {
-				String str = br.readLine(); // **한라인씩 읽어오기**
-
-				if (str == null) {
-
-					break;// 반복문 종료
+			
+				String line = breader.readLine();
+				if (line != null) {
+					String[] strAry = line.split(" ");
+					System.out.printf("이름: %s, 영어: %s, 수학: %s\n",
+							strAry[0], strAry[1], strAry[2]);
+				} else {
+					break;
 				}
-
-				String[] strAry = str.split(" "); // 구분자(공백) 배열생성.
-				System.out.println("이름: " + strAry[0]//
-						+ ", 영어: " + strAry[1]//
-						+ ", 수학: " + strAry[2]);
-
 			}
-			br.close();
+			
+			breader.close();
 			reader.close();
-
+			bwriter.close();
+			writer.close();
+			
+			System.out.println("eop");
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("end of prog");
+		
 	}
+	
+
 }

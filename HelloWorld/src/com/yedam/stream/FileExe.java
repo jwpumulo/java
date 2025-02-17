@@ -1,119 +1,166 @@
 package com.yedam.stream;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Reader;
+import java.io.Writer;
 
 public class FileExe {
 
 	public static void main(String[] args) {
 
-		// 문자기반 출력 ListExe.java 읽기
-		char txt;
 		try {
-			Reader reader = new FileReader("c:/temp/ListExe.java");
+			Reader reader = new FileReader("C:/temp/ListExe.java");
+//			Writer writer = new FileWriter("C:/temp/ListExeCopy.java");
+			
+			int data = -1;
+			
 			while (true) {
-				int chr = reader.read(); // char(2byte)
-				System.out.print((char) chr); // 65 > A
-				if (chr == -1) {
+			
+				data = reader.read();
+				System.out.print((char) data);
+				
+//				char[] buf = new char[100];
+//
+//				data = reader.read(buf);
+//				System.out.print(buf);
+				
+//				writer.write(buf);
+				
+				if (data == -1) {
 					break;
 				}
 			}
+			
 			reader.close();
+//			writer.flush();
+//			writer.close();
+			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("end of prog");
+		
 
+//		output();
+//		input();
+//		copy();
+		System.out.println("eop");
 	}
-}
-//		
-//		문자기반 파일출력
+
+	static void output() {
+		try {
+			OutputStream os = new FileOutputStream("C:/temp/test1.dat");
+
+			os.write(10);
+			os.write(20);
+			os.write(30);
+
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	static void input() {
+		try {
+			InputStream is = new FileInputStream("C:/temp/test1.dat");
+
+			while (true) {
+
+				int data = is.read();
+				System.out.println(data);
+
+				if (data == -1) {
+					break;
+				}
+			}
+
+			is.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	static void copy() {
+		try {
+			InputStream is = new FileInputStream("C:/temp/ex1.jpg");
+			OutputStream os = new FileOutputStream("C:/temp/copy3.jpg");
+
+			int data = -1;
+			while (true) {
+
+				byte[] buf = new byte[100];
+
+				data = is.read(buf);
+				System.out.println(data);
+
+				os.write(buf);
+
+				if (data == -1) {
+					break;
+				}
+			}
+			is.close();
+			os.flush();
+			os.close();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 //		try {
-//			Writer wr = new FileWriter("c:/temp/test2.txt");
-//			wr.write(65); // 매개값
-//			wr.write(new char[] { 'b', 'c' }); // 매개값
-//			wr.write("DEJHGYJJ", 2, 3); // 매개값
-//
-//			wr.flush();
-//			wr.close();
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		System.out.println("end of prog");
-//
-//	}
-//	
-//	
-//}
-//		
-//		
-//		
-//		
-//		
-//		
-//
-//		// c:temp/sample_01.PNG > c:temp/copy.PNG생성
-//
-//		try {
-//			InputStream is = new FileInputStream("c:temp/sample_01.PNG");
-//			OutputStream os = new FileOutputStream("c:temp/copy.PNG");
+//			InputStream is = new FileInputStream("C:/temp/mcpc.jpg");
+//			OutputStream os = new FileOutputStream("C:/temp/copy.jpg");
 //
 //			int data = -1;
-//			byte[] buf = new byte[100];
-//
 //			while (true) {
-//				// 읽기
-//				data = is.read(buf); // -1 더이상 읽지 못하면 반환
 //
-//				os.write(data); // 출력 ( 바이트 쓰기)
+//				data = is.read();
+//				System.out.println(data);
+//				
+//				os.write(data);
 //
 //				if (data == -1) {
 //					break;
-//
 //				}
-//
 //			}
-//
 //			is.close();
 //			os.flush();
 //			os.close();
+//			
 //
 //		} catch (IOException e) {
-//
+//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//
-////		try {
-////			InputStream is = new FileInputStream("c:/temp/test1.dat");
-////			while (true) {
-////				int date = is.read(); // 바이트 읽고 반환 -1값 반환
-////				System.out.println(date);
-////				if (date == -1) {
-////					break;
-////				}
-////			}
-////			is.close();
-////
-////		} catch (IOException e) {
-////			e.printStackTrace();
-////
-////		
-//		
-//	
-//	
-//	}
-//	
-//	void copy()
-//		
-//	
-//	
-//	
-//		
-//
-//		System.out.println("end of prog");
-//
-//	}
-//}
+	}
+	
+	static void writer() {
+		try {
+			Writer writer = new FileWriter("C:/temp/test2.txt");
+
+			writer.write(65);
+			writer.write('A');
+			writer.write("난너를믿었던만큼\n내친구도믿었기에", 3, 8);
+			writer.write(new char[] { 'B', 'C' });
+
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

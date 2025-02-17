@@ -4,12 +4,14 @@ public class Radio implements RemoteControl {
 
 	@Override
 	public void turnOn() {
-		System.out.println("라디오의 전원을 켭니다.");
+		// TODO Auto-generated method stub
+		System.out.println("Radio on!");
 	}
 
 	@Override
 	public void turnOff() {
-		System.out.println("라디오의 전원을 끕니다.");
+		// TODO Auto-generated method stub
+		System.out.println("Radio off!");
 	}
 
 }

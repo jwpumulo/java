@@ -1,7 +1,4 @@
 package com.yedam.stream;
-/*
- * 학생이름, 키, 이름, 점수
- */
 
 public class Student {
 
@@ -10,15 +7,13 @@ public class Student {
 	private double weight;
 	private int score;
 
-	public Student(String name, double height, double weight, int score) { // 소스 밑에서 3번쨰
+	public Student(String name, double height, double weight, int score) {
 		super();
 		this.name = name;
 		this.height = height;
 		this.weight = weight;
 		this.score = score;
 	}
-
-	// getter setter
 
 	public String getName() {
 		return name;
@@ -51,5 +46,4 @@ public class Student {
 	public void setScore(int score) {
 		this.score = score;
 	}
-
 }

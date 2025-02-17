@@ -3,50 +3,37 @@ package com.yedam.reference;
 public class ReferenceExe1 {
 
 	public static void main(String[] args) {
-		// 배열선언.
-		double[] dblAry = new double[5];
-		dblAry[0] = 171.3;
-		System.out.println(dblAry.length);
-		for (int i = 0; i < dblAry.length; i++) { // 쓰는 규칙들 기억하기
+		int[] intArray;
+		double[] doubleArray;
+		String[] stringArray;
+		doubleArray = new double[5];
+		doubleArray = new double[] { 160.5, 174.6, 180.1 };
 
-		}
-
-		dblAry = new double[] { 160.5, 174.6 };
-		System.out.println(dblAry.length);
-
-		// 배열[][] = > 다차원 배열
-		int[][] intAry = new int[2][3]; // 2행 3열 배열선언
-		intAry[0][0] = 10;
-		intAry[0][1] = 20;
-		intAry[0][2] = 30;
-		intAry[1][2] = 40;
-		intAry[1][1] = 50;
-		intAry[1][0] = 50;
-
-		for (int j = 0; j < intAry.length; j++) {
-
-			for (int i = 0; i < intAry[0].length; i++) {
-
-				System.out.println("intAry[" + j + "][" + i + "]=>" + intAry[j][i]);
-
+		// array[][];
+		int[][] array = new int[2][3];
+		array[0][0] = 10;
+		array[0][1] = 20;
+		array[0][2] = 30;
+		array[1][0] = 20;
+		array[1][1] = 30;
+		array[1][2] = 40;
+		for (int j = 0; j < array.length; j++) {
+			for (int i = 0; i < array[j].length; i++) {
+				System.out.println(array[j][i]);
 			}
 		}
 
 	}
 
-	public int sum(int num1, int num2) {
-		return num1 + num2;
-
-	}
-
 	public void method1() {
-		System.out.println("method1()이 호출되었습니다");
-
+		System.out.println("method1");
 	}
 
 	private void method2() {
-		System.out.println("method2()이 호출되었습니다");
-
+		System.out.println("method2");
 	}
 
-}// end of class
+	public int sum(int num1, int num2) {
+		return num1 + num2;
+	}
+}

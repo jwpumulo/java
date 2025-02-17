@@ -3,48 +3,52 @@ package com.yedam.reference;
 public class ReferenceExe2 {
 
 	public static void main(String[] args) {
-		// 배열선언.
 
-//		String[][] nameScore = new String[5][2]; // 문자열 String
-		String[][] nameScore = { { "홍길동", "80" }, { "김민수", "85" }, { "박헌수", "88" }, { "심상현", "90" }, { "최기동", "75" }, };
+		String[][] score = new String[5][2];
+//		score[0][0] = "홍길동";
+//		score[0][1] = "80";
+		score[0] = new String[] { "홍길동", "80" };
+		score[1][0] = "김민수";
+		score[1][1] = "85";
+		score[2][0] = "박헌수";
+		score[2][1] = "88";
+		score[3][0] = "심상현";
+		score[3][1] = "90";
+		score[4][0] = "최기동";
+		score[4][1] = "75";
 
-//		nameScore[0][0] = "홍길동";
-//		nameScore[0][1] = "80"; // 문자열 ""
-//
-//		nameScore[1] = new String[] { "김민수", "85" };
-//		nameScore[1][0] = "김민수";
-//		nameScore[1][1] = "85";
-//
-//		nameScore[2][0] = "박헌수";
-//		nameScore[2][1] = "88";
-//
-//		nameScore[3][0] = "심상현";
-//		nameScore[3][1] = "90";
-//
-//		nameScore[4][0] = "최기동";
-//		nameScore[4][1] = "75";
-
-//		for (int j = 0; j < nameScore.length; j++) { // int
-//			for (int i = 0; i < nameScore[0].length; i++) {
-//				System.out.println("nameScore[" + j + "][" + i + "]=>" + nameScore[j][i]);
+//		for (int i = 0; i < score.length; i++) {
+//			for (int j = 0; j < score[i].length; j++) {
+//				System.out.println(score[i][j]);
 //			}
 //		}
 
+		// 총점
 		int sum = 0;
+		// 최고점
+		int maxScore = 0;
+//		// 최고점 학생
+		String maxName = "";
+		
+//		String[] temp = new String[2];
 
-		String[] temp = { "", "0" }; // 문자열 "0"
+		// 학생 순회
+		for (int j = 0; j < score.length; j++) {
 
-		for (int i = 0; i < nameScore.length; i++) {
-			System.out.println("점수는" + nameScore[i][1]); // sum에 값을 누적
-			sum = sum + Integer.parseInt(nameScore[i][1]); // 최고점수를 받은 학생
+			// 점수 출력 및 총점 계산
+			System.out.printf("점수는 %s\n", score[j][1]);
+			int value = Integer.parseInt(score[j][1]);
+			sum += value;
 
-			if (Integer.parseInt(temp[1]) < Integer.parseInt(nameScore[i][1])) { // 클래스 안의 메서드
-				temp = nameScore[i];
+			// 최고점 비교 및 학생 저장
+			if (maxScore < value) {
+				maxScore = value;
+				maxName = score[j][0];
+//				temp = score[j];
 			}
-
 		}
-		System.out.printf("sum의 값은 %d\n", sum);
-		System.out.printf("최고점 학생은 %s\n", temp[0]);
 
-	}// end of main
-}// end of class
+		System.out.printf("최고점은 %d, 학생은 %s\n", maxScore, maxName);
+		System.out.printf("총점은 %d, 평균은 %f", sum, (double) sum / score.length);
+	}
+}

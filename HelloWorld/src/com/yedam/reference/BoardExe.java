@@ -3,227 +3,265 @@ package com.yedam.reference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Scanner; //ctrl shift o
+import java.util.Scanner;
 
 /*
- * 실행클래스
- * 1. 글목록 2.글등록 3.삭제 9.종료
+ * 1.글목록 2.등록 3.삭제 9.종료
+ * 
  */
 public class BoardExe {
-	static Board[] boardRepo = new Board[100]; // 게시글등록 배열
+
 	static Scanner scn = new Scanner(System.in);
 
-	public static void initData() throws ParseException { // 배열의 샘플 데이터
-		// 1페이지 0~4, 2페이지: 5~9, 3페이지 10~14
+	static Board[] boardRepo = new Board[100];
+
+	public static void initData() throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		boardRepo[0] = new Board("게시글제목1", "내용입니다1", "user01", sdf.parse("2025-01-27"));
-		boardRepo[1] = new Board("게시글제목2", "내용입니다2", "user02", sdf.parse("2025-01-28"));
-		boardRepo[2] = new Board("게시글제목3", "내용입니다3", "user03", sdf.parse("2025-01-29"));
-		boardRepo[3] = new Board("게시글제목4", "내용입니다4", "user04", sdf.parse("2025-01-29"));
-		boardRepo[4] = new Board("게시글제목5", "내용입니다5", "user05", sdf.parse("2025-01-29"));
-
-		boardRepo[5] = new Board("게시글제목6", "내용입니다4", "user06", sdf.parse("2025-01-29"));
-		boardRepo[6] = new Board("게시글제목7", "내용입니다5", "user07", sdf.parse("2025-01-29"));
-		boardRepo[7] = new Board("게시글제목8", "내용입니다4", "user08", sdf.parse("2025-01-29"));
-		boardRepo[8] = new Board("게시글제목9", "내용입니다4", "user09", sdf.parse("2025-01-29"));
-		boardRepo[9] = new Board("게시글제목10", "내용입니다5", "user03", sdf.parse("2025-01-29"));
-
-		boardRepo[10] = new Board("게시글제목11", "내용입니다4", "user03", sdf.parse("2025-01-29"));
-		boardRepo[11] = new Board("게시글제목12", "내용입니다5", "user03", sdf.parse("2025-01-29"));
-		boardRepo[12] = new Board("게시글제목13", "내용입니다4", "user03", sdf.parse("2025-01-29"));
-
-		boardRepo[0].setTitle("test");
+		boardRepo[0] = new Board("title1", "content1", "writer1", sdf.parse("2025-01-01"));
+		boardRepo[1] = new Board("title2", "content2", "writer2", sdf.parse("2025-01-02"));
+		boardRepo[2] = new Board("title3", "content3", "writer3", sdf.parse("2025-01-03"));
+		boardRepo[3] = new Board("title4", "content4", "writer4", sdf.parse("2025-01-04"));
+		boardRepo[4] = new Board("title5", "content5", "writer5", sdf.parse("2025-01-05"));
+		boardRepo[5] = new Board("title6", "content6", "writer6", sdf.parse("2025-01-06"));
+		boardRepo[6] = new Board("title7", "content1", "writer1", sdf.parse("2025-01-07"));
+		boardRepo[7] = new Board("title8", "content2", "writer2", sdf.parse("2025-01-08"));
+		boardRepo[8] = new Board("title9", "content3", "writer3", sdf.parse("2025-01-09"));
+		boardRepo[9] = new Board("title10", "content4", "writer4", sdf.parse("2025-01-10"));
+		boardRepo[10] = new Board("title11", "content5", "writer5", sdf.parse("2025-01-11"));
+		boardRepo[11] = new Board("title12", "content6", "writer6", sdf.parse("2025-01-12"));
 
 	}
 
-	public static void boardList() { // 글목록을 보여주는 메소드
-
-		// 1페이지 0~4, 2페이지: 5~9, 3페이지 10~14
+	public static void boardList() {
 
 		int page = 1;
-		int lastPage = (int) Math.ceil(getMaxCount() / 5.0); // 13/5
 
 		while (true) {
-			int firstIdx = 1; // page 2 > 5
-			int lastIdx = (page * 5) - 1; // page 2 > 9
+			int firstIndex = (page - 1) * 5;
+			int lastIndex = (page * 5) - 1;
+			int lastPage = (int) Math.ceil(getMaxCount() / 5.0);
 
-			for (int i = firstIdx; i <= lastIdx; i++) {
+			int count = 0;
+			int min = (page - 1) * 5;
+			int max = (page) * 5;
 
+			for (int i = 0; i < boardRepo.length; i++) {
 				if (boardRepo[i] != null) {
-					System.out.println(boardRepo[i].showBoard());
+//					System.out.println(count);
+//					System.out.println(min);
+//					System.out.println(max);
+					if (count < max && count >= min) {
+						System.out.printf("%3d : %s\n", i, boardRepo[i].showBoard());
+					}
+					count++;
 				}
-			} // 5건씩 출력이 되도록
 
-			System.out.print("이전페이지:p, 이후페이지:n, 종료:q ");
+			}
+
+			System.out.println("=====================================");
+
+			for (int i = firstIndex; i <= lastIndex; i++) {
+				if (boardRepo[i] != null) {
+					System.out.printf("%3d : %s\n", i, boardRepo[i].showBoard());
+				}
+			}
+
+			System.out.println("이전: p, 이후: n, 종료 : q");
 			String paging = scn.nextLine();
 
-			if (paging.equals("n")) { // 이후페이지:n //마지막페이지 보다는 작은 값
-				if (page < lastPage) {
-					page++;
-				}
-			} else if (paging.equals("p")) { // 이전페이지:q //1보다는 큰페이지
+			switch (paging) {
+			case "p":
 				if (page > 1) {
 					page--;
 				}
-			} else if (paging.equals("q")) { // 종료:q
+				break;
+			case "n":
+				if (page < lastPage) {
+					page++;
+				}
+				break;
+			case "q":
 				return;
+			default:
 			}
-		} // end of while
+		}
 
-	}// end of boardList
-		// 배열을 매개값으로 전달하면 건수가 몇 건인지 반환 메소드
+//		System.out.print("페이지>");
+//		int page = Integer.parseInt(scn.nextLine());
+//		int perPage = 5;
+//		int countAll = 0;
+//		int count = 0;
+//
+//		for (int i = 0; i < boardRepo.length; i++) {
+//			if (boardRepo[i] != null) {
+//				countAll++;
+//				System.out.println(countAll);
+//				if (page * perPage < countAll) {
+//					count++;
+//					System.out.println(count);
+//
+//					if (count < perPage) {
+//						System.out.printf("%3d : %s\n", i, boardRepo[i].showBoard());
+//					} else {
+//						break;
+//					}
+//				}
+//			}
+//		}
+
+//		for (int i = 0; i < boardRepo.length; i++) {
+//			if (boardRepo[i] != null) {
+//				System.out.printf("%3d : %s\n", i, boardRepo[i].showBoard());
+//			}
+//		}
+	}
 
 	public static int getMaxCount() {
-
 		int count = 0;
+
 		for (int i = 0; i < boardRepo.length; i++) {
 			if (boardRepo[i] != null) {
-
 				count++;
 			}
 		}
-		return count; // 건수 반환
 
+		return count;
 	}
 
-	// 글등록
-	// 제목: 5글자 이상 ~ 15글자 이하. 콘솔출력("등록불가합니다");
-	// 똑같은 글제목이 잇으면 콘솔출력 ("이미 있는 제목입니다");
-
-	public static void addBoard(String loginId) {// 글등록
-
-		System.out.print("제목을 입력>> ");
+	public static void addBoard(String loginId) {
+		System.out.print("제목>");
 		String title = scn.nextLine();
 
-		if (title.length() < 5 || title.length() > 15) { // &&이 아님
-			System.out.print("등록불가>> ");
+		if (title.length() < 5 || title.length() > 15) {
+			System.out.println("등록불가");
 			return;
-		}
-
-		for (int i = 0; i < boardRepo.length; i++) {
-			if (boardRepo[i] != null && title.equals(boardRepo[i].getTitle())) {
-				System.out.println("이미 있는 제목>> ");
-				return;
+		} else {
+			for (int i = 0; i < boardRepo.length; i++) {
+				if (boardRepo[i] != null && title.equals(boardRepo[i].getTitle())) {
+					System.out.println("이미 있는 제목");
+					return;
+				}
 			}
 		}
 
-		System.out.print("내용을 입력>> ");
+		System.out.print("내용>");
 		String content = scn.nextLine();
-//		System.out.print("작성자를 입력>> ");
+//		System.out.print("작성자>");
 //		String writer = scn.nextLine();
-		System.out.print("작성일시 입력>> ");
-		String writeDate = scn.nextLine();
+//		System.out.print("작성일자>");
+//		String writeDate = scn.nextLine();
 
-		// 배열의 빈공간에 등록
 		for (int i = 0; i < boardRepo.length; i++) {
 			if (boardRepo[i] == null) {
 				boardRepo[i] = new Board(title, content, loginId, new Date());
 				System.out.println("등록완료");
-				break; // 한건만 등록합니다
-
+				break;
 			}
 		}
-
 	}
 
-	public static void removeBoard() { // 글삭제 글제목을 입력 - 삭제는 null 대입하면 삭제.
-		System.out.print("제목을 입력>> ");
+	public static void removeBoard() {
+
+		System.out.print("제목>");
 		String title = scn.nextLine();
 
 		for (int i = 0; i < boardRepo.length; i++) {
 			if (boardRepo[i] != null && title.equals(boardRepo[i].getTitle())) {
-				boardRepo[i] = null; // 삭제
-				System.out.print("제목을 입력>> ");
+				boardRepo[i] = null;
+				System.out.println("삭제완료");
+				sort();
 				break;
 			}
 		}
-	} // end of removeBoard
 
-	public static void main(String[] args) { // 여기 안에 넣으면 메인영역
-		MemberExe exe = new MemberExe();
+//		System.out.print("번호>");
+//		int index = Integer.parseInt(scn.nextLine());
+//
+//		if (boardRepo[index] != null) {
+//			boardRepo[index] = null;
+//			System.out.println("삭제완료");
+//		} else {
+//			System.out.println("잘못된 번호");
+//		}
+	}
+
+	public static void sort() {
+		Board[] boardRepoCopy = new Board[100];
+
+		for (int i = 0; i < boardRepo.length; i++) {
+			if (boardRepo[i] != null) {
+				for (int j = 0; j < boardRepoCopy.length; j++) {
+					if (boardRepoCopy[j] == null) {
+						boardRepoCopy[j] = boardRepo[i];
+						break;
+					}
+				}
+			}
+		}
+		boardRepo = boardRepoCopy;
+	}
+
+	public static void main(String[] args) {
+
+		MemberExe member = MemberExe.getInstance();
+
 		String loginId;
 
 		while (true) {
 
-			// id, password 일치하면 굴목록기능 사용
-			System.out.print("아이디 입력>>");
-			String id = scn.nextLine();
-			System.out.print("비밀번호 입력>>");
-			String pw = scn.nextLine();
+			System.out.println("ID 입력");
+			String memberId = scn.nextLine();
+			System.out.println("비밀번호 입력");
+			String password = scn.nextLine();
 
-			String name = exe.login(id, pw);
-			if (name != null) {
-				// 환영메세지! "블랙핑크님, 환영합니다"
-				loginId = id; // 여러메소드 공용사용
-				System.out.println(name + "님, 환영합니다");
+			String memberName = member.login(memberId, password);
 
-				break; // while 반복 종료
-
+			if (memberName != null) {
+				loginId = memberId;
+				System.out.printf("%s 님 환영합니다\n", memberName);
+				break;
 			} else {
-				System.out.println("아이디와 비밀번호를 확인하세요"); // 줄바꿈 해줘야 이쁨
-
+				System.out.println("로그인 실패");
 			}
-		} // end of while
+		}
 
-		boolean run = true;
 		try {
 			initData();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} // 초기 데이터 생성
+		}
+
+		boolean run = true;
 
 		while (run) {
-			System.out.println("1.글목록 2.글등록 3.삭제 9.종료");
-			System.out.print("선택> ");
-			int menu = Integer.parseInt(scn.nextLine()); // 정수
+
+			System.out.println("=============================");
+			System.out.println("1.글목록 2.등록 3.삭제 9.종료");
+			System.out.print("선택>");
+
+			int menu = Integer.parseInt(scn.nextLine());
 
 			switch (menu) {
-
-			case 1: // 목록
+			case 1:
 				boardList();
 				break;
-			case 2: // 등록
+			case 2:
 				addBoard(loginId);
 				break;
-			case 3: // 삭제
+			case 3:
 				removeBoard();
 				break;
-			case 9: // 종료
-				System.out.println("프로그램을 종료합니다.");
+			case 9:
+				System.out.println("종료");
 				run = false;
 				break;
-
-			default: // 1, 2, 3, 6 외의 경우
-				System.out.println("메뉴를 확인하세요.");
+			default:
+				System.out.println("메뉴확인");
 			}
-
-		} // end of while
-
-		System.out.println("end of  prog.");
-
+		}
+		System.out.println("프로그램 종료");
 	}
-
-} //
-
-/*
- * 
- * while (true) { // 1page: 1~5 2page:6~10, 3page: 11~15
- * 
- * int endCnt = page*5; // 5, 10, 15 int startCnt = endCnt -5; // 0, 5, 10 int
- * loopCnt = 0; // 반복횟수저장 System.out.println("글제목     내용          작성자  작성일시")
- * System.out.println("-------------------------------------------")
- * 
- * 
- * for (int i = 0; i< boardRepo.length; i++) { if (boardRepo[i] i=null) {
- * //null이 아닌 경우에만 카운트 loopCnt++; if (loobCnt > startCnt && loopCnt <= endCnt) {
- * System.out.println(loopCnt + "" = boardRepo[i].show > startCnt && loopCnt <=
- * endCntdRepo[i].showBoard()
- * 
- * } } } // end of for
- * 
- * 
- * // 5건씩 출력이 되도록 System.out.println("이전페이지:p, 이후페이지:n, 종료: q") }
- */
+}

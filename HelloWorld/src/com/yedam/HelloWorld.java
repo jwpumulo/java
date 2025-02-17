@@ -1,28 +1,22 @@
 package com.yedam;
-// 객체 (object)
 
-//class : 객체를 자바언어로 정의
-// HelloWorld.java 소스코드 "클래스 이름과 파일이름이 같아야함"
-// HelloWorld.class파일
-
+// 객체 (object) 지향 언어. 
+// class : 객체를 자바 언어로 정의.
+// HelloWorld.java >> HelloWorld.class
 public class HelloWorld {
 
-	// method:기능
+	// method : 기능
 	public static void main(String[] args) {
-		System.out.println("Hello, World");
-		
-		
-		int sum = 0;
-		int myAge = 20; 
-		myAge = 20;
-		
-		for (int i = 1; 1 <= 10; i++ )
-			{if (i%2==0)	{
-		System.out.println("i의 값은"+i);  
-		sum += i;
+		System.out.println("Hello, World!");
 
+		int myAge = 20;
+		int sum = 0;
+		for (int i = 0; i < 10; i++) {
+			System.out.println("i의 값은 " + i);
+			if (i % 2 == 0) {
+				sum += i;
+			}
 		}
-		System.out.println ("sum의 값은 " + sum);
+		System.out.println("sum의 값은 " + sum);
 	}
-}
 }
